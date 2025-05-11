@@ -1,23 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Fetch API
-  if (window.location.pathname.includes("index.html")) {
-    let profile = document.getElementById("profile");
-    let signOut = document.getElementById("signOut");
-    if (localStorage.getItem("loggedIn")) {
-        signOut.innerText = "Sign Out"
-        let signInBtn = document.getElementById("signIn-btn");
-        signInBtn.innerText = "Start Shopping";
-        signInBtn.href = "#";
-        profile.innerText = localStorage.getItem("username");
-        profile.href = "#";
-    } else {
-        profile.innerText = "Sign In";
-        profile.href = "signIn.html";
-    }
-    signOut.onclick = e => {
-        localStorage.removeItem("loggedIn")
-    }
-    let container = document.getElementById("container");
+  let container = document.getElementById("container");
+  if (container) {
     const products = async () => {
       try {
         const res = await fetch("https://fakestoreapi.com/products");
@@ -56,6 +40,25 @@ document.addEventListener("DOMContentLoaded", () => {
     products();
   }
 
+  let profile = document.getElementById("profile");
+  if (profile) {
+    let signOut = document.getElementById("signOut");
+    if (localStorage.getItem("loggedIn")) {
+      signOut.innerText = "Sign Out";
+      let signInBtn = document.getElementById("signIn-btn");
+      signInBtn.innerText = "Start Shopping";
+      signInBtn.href = "#";
+      profile.innerText = localStorage.getItem("username");
+      profile.href = "#";
+    } else {
+      profile.innerText = "Sign In";
+      profile.href = "signIn.html";
+    }
+    signOut.onclick = (e) => {
+      localStorage.removeItem("loggedIn");
+    };
+  }
+
   // Handle Sign up
   if (window.location.pathname.includes("signUp.html")) {
     const signUp = () => {
@@ -87,9 +90,9 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.getItem("password") === password.value
         ) {
           window.location.href = "index.html";
-          localStorage.setItem("loggedIn", "true")
+          localStorage.setItem("loggedIn", "true");
         } else {
-            alert("Sorry, username or password is not correct")
+          alert("Sorry, username or password is not correct");
         }
       };
     };
